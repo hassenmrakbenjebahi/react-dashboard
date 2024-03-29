@@ -12,6 +12,7 @@ import { Button , IconButton} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { Link } from 'react-router-dom';
 
 
 const Quiz = () => {
@@ -81,7 +82,7 @@ const Quiz = () => {
         <Button
           variant="contained"
           startIcon={<AddOutlinedIcon />}
-          onClick={() => console.log("add")}
+          component={Link} to="/formQuiz"
         >
           Add Quiz
         </Button>
