@@ -38,7 +38,7 @@ const Quiz = () => {
   
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://192.168.1.5:5000/all_quiz/${id}`);
+      await axios.delete(`http://192.168.1.5:5000/delete_quiz/${id}`);
       // Re-fetch quizs after deletion
       fetchQuizs();
     } catch (error) {
