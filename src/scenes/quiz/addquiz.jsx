@@ -3,13 +3,15 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
+import { Link } from 'react-router-dom';
 
 const FormQuiz = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const handleFormSubmit = (values) => {
-    console.log(values);
+  const handleFormSubmit = () => {
+    
   };
+  
 
   return (
     <Box m="20px">
@@ -55,9 +57,11 @@ const FormQuiz = () => {
             
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Button type="submit" color="secondary" variant="contained">
-                Create New Quiz
-              </Button>
+             <Link to="/detailquiz"> {/* Utilisation du composant Link pour la navigation */}
+                <Button type="submit" color="secondary" variant="contained">
+                  Create New Quiz
+                </Button>
+              </Link>
             </Box>
           </form>
         )}

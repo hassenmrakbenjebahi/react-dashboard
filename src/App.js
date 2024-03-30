@@ -18,6 +18,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
 import FormQuiz from "./scenes/quiz/addquiz";
+import DetailQuiz from "./scenes/quiz/detailQuiz";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -37,6 +38,7 @@ function App() {
               <Route path="/recruitment" element={<Recruitment />} />
               <Route path="/quizs" element={<Quiz />} />
               <Route path="/formQuiz" element={<FormQuiz />} />
+              <Route path="/detailquiz" element={<DetailQuiz />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/form" element={<Form />} />
