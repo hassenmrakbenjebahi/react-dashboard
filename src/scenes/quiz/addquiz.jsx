@@ -57,7 +57,7 @@ const FormQuiz = () => {
             
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-             <Link to="/detailquiz"> {/* Utilisation du composant Link pour la navigation */}
+            <Link to={`/detailquiz/${values.theme}`}> 
                 <Button type="submit" color="secondary" variant="contained">
                   Create New Quiz
                 </Button>

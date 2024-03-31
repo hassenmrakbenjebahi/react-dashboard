@@ -14,12 +14,17 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { Link } from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // Import de l'icône
+import { useParams } from "react-router-dom";
 
 const DetailQuiz = () => {
   const [questionss, setquetionss] = useState([]);
+  const { th } = useParams();
+
 
   useEffect(() => {
     fetchQuiz();
+    console.log("thhhhhhhhhh :", th);
+   
 
   }, []);
 

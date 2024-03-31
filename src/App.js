@@ -38,7 +38,7 @@ function App() {
               <Route path="/recruitment" element={<Recruitment />} />
               <Route path="/quizs" element={<Quiz />} />
               <Route path="/formQuiz" element={<FormQuiz />} />
-              <Route path="/detailquiz" element={<DetailQuiz />} />
+              <Route path="/detailquiz/:th" element={<DetailQuiz />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/form" element={<Form />} />
