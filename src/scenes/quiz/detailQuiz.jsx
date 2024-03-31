@@ -23,10 +23,32 @@ const DetailQuiz = () => {
 
   useEffect(() => {
     fetchQuiz();
-    console.log("thhhhhhhhhh :", th);
    
 
   }, []);
+
+
+  const saveQuiz =  async () => {
+    try {
+      const response = await axios.post(
+        "http://192.168.1.5:5000/add_quiz",
+        {
+          theme: th,
+          questions: questionss,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log("Response:", response.data); // Afficher la réponse de la requête POST
+      return response.data; // Retourner les données de réponse si nécessaire
+    } catch (error) {
+      console.error("Error adding quiz:", error); // Gérer les erreurs de la requête POST
+      throw error; // Lancer l'erreur pour la gérer plus tard si nécessaire
+    }
+  };
 
   const fetchQuiz = async () => {
     try {
@@ -79,7 +101,7 @@ const DetailQuiz = () => {
             </CardContent>
           </Card>
         ))}
-        <Button variant="contained">Save</Button> {/* Bouton de sauvegarde */}
+        <Button variant="contained" onClick={saveQuiz}>Save</Button> {/* Bouton de sauvegarde */}
       </Box>
     </Box>
   );
