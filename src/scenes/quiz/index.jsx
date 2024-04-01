@@ -32,12 +32,7 @@ const Quiz = () => {
     }
   };
 
-  const handleEdit = (id) => {
-    // Logique de modification
-    console.log("Modifier le quiz avec l'ID :", id);
-  };
-  
-  const handleDelete = async (id) => {
+    const handleDelete = async (id) => {
     try {
       await axios.delete(`http://192.168.1.5:5000/delete_quiz/${id}`);
       // Re-fetch quizs after deletion
@@ -57,7 +52,7 @@ const Quiz = () => {
       headerName: "EDIT",
       flex: 1,
       renderCell: ({ row }) => (
-        <IconButton onClick={() => handleEdit(row._id)}>
+        <IconButton component={Link} to={`/modifierquiz/${row._id}`}>
           <EditIcon />
         </IconButton>
       ),
