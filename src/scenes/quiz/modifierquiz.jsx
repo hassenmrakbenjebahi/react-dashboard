@@ -17,49 +17,67 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // Import de l'ic
 import { useParams } from "react-router-dom";
 
 const ModifierQuiz = () => {
-  const [quiz, setquiz] = useState([]);
-  const { id } = useParams();
-
-
-  useEffect(() => {
-    fetchQuiz();
-   
-
-  }, []);
-
-  const fetchQuiz = async () => {
-    try {
-      const response = await axios.get(`http://192.168.1.5:5000/onequiz/${id}`);
-      console.log("Response:", response.data); // Log the response data
-      setquiz(response.data); // Set the state with response data
-
-    } catch (error) {
-      console.error("Error fetching quiz:", error);
-    }
-  };
+    const [quiz, setQuiz] = useState(null);
+    const { id } = useParams();
   
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-  return (
-    <div>
-      {quiz && (
-        quiz.questions.map((question, index) => (
-          <Card key={index} sx={{ marginTop: 2 }}>
+    useEffect(() => {
+      const fetchQuiz = async () => {
+        try {
+          const response = await axios.get(`http://192.168.1.5:5000/onequiz/${id}`);
+          console.log("Response:", response.data);
+          setQuiz(response.data);
+        } catch (error) {
+          console.error("Error fetching quiz:", error);
+        }
+      };
+  
+      fetchQuiz();
+    }, [id]);
+  
+    return (
+        <Box m="20px">
+        <Header title="AI Recruit" subtitle="Detail Quiz" />
+       
+        <Box
+          m="40px 0 0 0"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}
+        >
+        {quiz === null ? (
+          <Typography>Loading...</Typography>
+        ) : (
+          quiz.questions.map((question, index) => (
+            <Card key={index} sx={{ width: '80%', mb: 3 }}>
             <CardContent>
-              <Typography variant="h5">{question.question}</Typography>
-              <ul>
-                {question.options.map((option, i) => (
-                  <li key={i}>{option}</li>
+              <Typography variant="h6" component="div" mb={1}>
+                Question {index + 1}:
+              </Typography>
+              <Typography variant="body1" component="div" mb={2}>
+                {question.question}
+              </Typography>
+              <List>
+                {question.options.map((option, optionIndex) => (
+                  <ListItem key={optionIndex} disablePadding>
+                  <ListItemText primary={option}/>
+                    {optionIndex === question.correct && (
+                      <ListItemIcon>
+                        <CheckCircleIcon color="success" /> {/* Icône pour l'option correcte */}
+                      </ListItemIcon>
+                    )} 
+                  </ListItem >
                 ))}
-              </ul>
+              </List>
             </CardContent>
           </Card>
-        ))
-      )}
-    </div>
-  );
-
-};
+          ))
+        )}
+      </Box>
+    </Box>
+    );
+  };
 
 
 
