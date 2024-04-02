@@ -12,16 +12,23 @@ import { Button , IconButton} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { Link } from 'react-router-dom';
+import { Link  , Navigate} from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // Import de l'icône
 import { useParams } from "react-router-dom";
+import Swal from 'sweetalert2'; // Import de SweetAlert2
 
 const DetailQuiz = () => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
+
   const [questions, setQuestions] = useState([]);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [editedQuestion, setEditedQuestion] = useState('');
   const [editedOptions, setEditedOptions] = useState([]);
+  const [isFormValid, setIsFormValid] = useState(false); // Nouvelle variable d'état pour la validation du formulaire
+  const [redirectToQuizs, setRedirectToQuizs] = useState(false); // Nouvelle variable d'état pour la redirection
   const { th } = useParams();
 
   useEffect(() => {
@@ -71,10 +78,30 @@ const DetailQuiz = () => {
         }
       );
       console.log("Quiz added successfully!");
+      Swal.fire({
+        icon: 'success',
+        title: 'Quiz Saved Successfully!',
+        showConfirmButton: false,
+        timer: 1500 // Durée de l'alerte en millisecondes
+      });
+      setTimeout(() => {
+        setRedirectToQuizs(true);
+      }, 1500);
     } catch (error) {
       console.error("Error adding quiz:", error);
     }
   };
+
+  useEffect(() => {
+    // Vérifie si tous les champs sont remplis
+    const isFormFilled = editedQuestion.trim() !== '' && editedOptions.every(option => option.trim() !== '');
+    setIsFormValid(isFormFilled);
+  }, [editedQuestion, editedOptions]);
+
+
+  if (redirectToQuizs) {
+    return <Navigate to="/quizs" />; // Redirection vers la page /quizs
+  }
 
   return (
     <Box m="20px">
@@ -99,13 +126,30 @@ const DetailQuiz = () => {
                 </ListItem>
               ))}
             </List>
-            <Button variant="outlined" startIcon={<EditIcon />} onClick={() => handleEditClick(index)}>Modifier</Button>
+            <Button 
+              variant="outlined" 
+              startIcon={<EditIcon />}  
+              onClick={() => handleEditClick(index)} 
+              sx={{ bgcolor: colors.greenAccent[600] }}
+            >
+              Edit
+            </Button>
           </CardContent>
         </Card>
       ))}
-
+    
+      <Box display="flex" justifyContent="center" mb={3}>
+        <Button 
+          variant="contained" 
+          onClick={saveQuiz} 
+          sx={{ bgcolor: colors.greenAccent[700] }}
+        >
+          Save Quiz
+        </Button>
+      </Box>
+  
       <Dialog open={editDialogOpen} onClose={() => setEditDialogOpen(false)}>
-        <DialogTitle>Modifier la question</DialogTitle>
+        <DialogTitle>Edit Question</DialogTitle>
         <DialogContent>
           <TextField
             fullWidth
@@ -113,6 +157,8 @@ const DetailQuiz = () => {
             value={editedQuestion}
             onChange={(e) => setEditedQuestion(e.target.value)}
             margin="normal"
+            error={editedQuestion.trim() === ''}
+            helperText={editedQuestion.trim() === '' ? 'question required' : ''}
           />
           {editedOptions.map((option, index) => (
             <TextField
@@ -126,21 +172,19 @@ const DetailQuiz = () => {
                 setEditedOptions(updatedOptions);
               }}
               margin="normal"
+              error={option.trim() === ''}
+              helperText={option.trim() === '' ? 'L\'option required' : ''}
             />
           ))}
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setEditDialogOpen(false)}>Annuler</Button>
-          <Button onClick={handleSaveEdit}>Sauvegarder</Button>
+          <Button onClick={() => setEditDialogOpen(false)} sx={{ bgcolor: "gray" }}>Cancel</Button>
+          <Button onClick={handleSaveEdit} disabled={!isFormValid} sx={{ bgcolor: colors.greenAccent[600] }}>Save</Button>
         </DialogActions>
       </Dialog>
-
-      {/* Bouton "Sauvegarder" */}
-      <Box textAlign="center">
-        <Button variant="contained" onClick={saveQuiz}>Sauvegarder le Quiz</Button>
-      </Box>
     </Box>
   );
+  
 };
 
 export default DetailQuiz;

@@ -1,15 +1,19 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, useTheme } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
-import { Link } from 'react-router-dom';
+import { Link , useNavigate } from 'react-router-dom';
+import { tokens } from "../../theme";
 
 const FormQuiz = () => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const navigate = useNavigate(); // Utiliser useNavigate pour la redirection
 
-  const handleFormSubmit = () => {
-    
+  const handleFormSubmit = (values) => {
+    navigate(`/detailquiz/${values.theme}`)
   };
   
 
@@ -57,11 +61,11 @@ const FormQuiz = () => {
             
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-            <Link to={`/detailquiz/${values.theme}`}> 
-                <Button type="submit" color="secondary" variant="contained">
+            
+                <Button type="submit" color="secondary" variant="contained" sx={{ bgcolor: colors.greenAccent[600] }}  >
                   Create New Quiz
                 </Button>
-              </Link>
+              
             </Box>
           </form>
         )}

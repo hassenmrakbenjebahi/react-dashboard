@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom';
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import PageviewIcon from '@mui/icons-material/Info';
+import Swal from 'sweetalert2';
 
 
 const Quiz = () => {
@@ -35,15 +36,32 @@ const Quiz = () => {
     }
   };
 
-    const handleDelete = async (id) => {
+  const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://192.168.1.4:5000/delete_quiz/${id}`);
-      // Re-fetch quizs after deletion
-      fetchQuizs();
+      // Afficher une alerte de confirmation avant la suppression
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this quiz!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      });
+  
+      // Si l'utilisateur clique sur "Oui"
+      if (result.isConfirmed) {
+        await axios.delete(`http://192.168.1.4:5000/delete_quiz/${id}`);
+        // Afficher une alerte de suppression réussie
+        Swal.fire('Deleted!', 'Your quiz has been deleted.', 'success');
+        // Re-fetch quizs after deletion
+        fetchQuizs();
+      }
     } catch (error) {
       console.error("Error deleting quiz:", error);
     }
   };
+  
   
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
