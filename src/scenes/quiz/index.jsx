@@ -13,6 +13,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { Link } from 'react-router-dom';
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import PageviewIcon from '@mui/icons-material/Info';
 
 
 const Quiz = () => {
@@ -24,7 +27,7 @@ const Quiz = () => {
 
   const fetchQuizs = async () => {
     try {
-      const response = await axios.get("http://192.168.1.5:5000/all_quiz");
+      const response = await axios.get("http://192.168.1.4:5000/all_quiz");
       console.log("Response:", response.data); // Log the response data
       setquizs(response.data); // Set the state with response data
     } catch (error) {
@@ -34,7 +37,7 @@ const Quiz = () => {
 
     const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://192.168.1.5:5000/delete_quiz/${id}`);
+      await axios.delete(`http://192.168.1.4:5000/delete_quiz/${id}`);
       // Re-fetch quizs after deletion
       fetchQuizs();
     } catch (error) {
@@ -45,16 +48,17 @@ const Quiz = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
-    { field: "_id", headerName: "ID", flex: 1 },
     { field: "theme", headerName: "THEME", flex: 1 },
     {
-      field: "edit",
-      headerName: "EDIT",
+      field: "Show",
+      headerName: "SHOW",
       flex: 1,
       renderCell: ({ row }) => (
-        <IconButton component={Link} to={`/modifierquiz/${row._id}`}>
-          <EditIcon />
-        </IconButton>
+        <Button startIcon={<PageviewIcon />}  component={Link} to={`/voirquiz/${row._id}`}
+        color="success"
+        >
+          Show
+        </Button>
       ),
     },
     {
@@ -62,9 +66,11 @@ const Quiz = () => {
       headerName: "DELETE",
       flex: 1,
       renderCell: ({ row }) => (
-        <IconButton onClick={() => handleDelete(row._id)}>
-          <DeleteIcon />
-        </IconButton>
+        <Button startIcon={<DeleteOutlineOutlinedIcon />}  onClick={() => handleDelete(row._id)}
+        color="error"
+        >
+          Delete
+        </Button>
       ),
     },
   ];

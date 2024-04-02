@@ -16,14 +16,14 @@ import { Link } from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // Import de l'icône
 import { useParams } from "react-router-dom";
 
-const ModifierQuiz = () => {
+const ShowQuiz = () => {
     const [quiz, setQuiz] = useState(null);
     const { id } = useParams();
   
     useEffect(() => {
       const fetchQuiz = async () => {
         try {
-          const response = await axios.get(`http://192.168.1.5:5000/onequiz/${id}`);
+          const response = await axios.get(`http://192.168.1.4:5000/onequiz/${id}`);
           console.log("Response:", response.data);
           setQuiz(response.data);
         } catch (error) {
@@ -82,4 +82,4 @@ const ModifierQuiz = () => {
 
 
 
-export default ModifierQuiz;
+export default ShowQuiz;
