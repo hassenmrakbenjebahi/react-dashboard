@@ -21,7 +21,7 @@ const DetailQuiz = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-
+  const [loading, setLoading] = useState(true); // Ajout de l'état de chargement
   const [questions, setQuestions] = useState([]);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
@@ -37,9 +37,11 @@ const DetailQuiz = () => {
 
   const fetchQuiz = async () => {
     try {
-      const response = await axios.get("http://192.168.1.4:5000/quiz");
+      const response = await axios.get(`http://192.168.1.187:5000/generer_quiz/${th}`);
       console.log("Response:", response.data);
       setQuestions(response.data);
+      setLoading(false); 
+
     } catch (error) {
       console.error("Error fetching quiz:", error);
     }
@@ -66,7 +68,7 @@ const DetailQuiz = () => {
   const saveQuiz = async () => {
     try {
       await axios.post(
-        "http://192.168.1.4:5000/add_quiz",
+        "http://192.168.1.187:5000/add_quiz",
         {
           theme: th,
           questions: questions,
@@ -100,7 +102,10 @@ const DetailQuiz = () => {
 
 
   if (redirectToQuizs) {
-    return <Navigate to="/quizs" />; // Redirection vers la page /quizs
+    return <Navigate to="/quizs" />; 
+  }
+  if (loading) {
+    return <Box>Loading...</Box>; 
   }
 
   return (

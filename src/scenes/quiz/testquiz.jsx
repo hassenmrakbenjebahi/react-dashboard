@@ -19,7 +19,7 @@ import PageviewIcon from '@mui/icons-material/Info';
 import Swal from 'sweetalert2';
 
 
-const Quiz = () => {
+const testQuiz = () => {
   const [quizs, setquizs] = useState([]);
 
   useEffect(() => {
@@ -36,31 +36,7 @@ const Quiz = () => {
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      // Afficher une alerte de confirmation avant la suppression
-      const result = await Swal.fire({
-        title: 'Are you sure?',
-        text: 'You will not be able to recover this quiz!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!',
-      });
-  
-      // Si l'utilisateur clique sur "Oui"
-      if (result.isConfirmed) {
-        await axios.delete(`http://192.168.1.187:5000/delete_quiz/${id}`);
-        // Afficher une alerte de suppression réussie
-        Swal.fire('Deleted!', 'Your quiz has been deleted.', 'success');
-        // Re-fetch quizs after deletion
-        fetchQuizs();
-      }
-    } catch (error) {
-      console.error("Error deleting quiz:", error);
-    }
-  };
+
   
   
   const theme = useTheme();
@@ -98,13 +74,7 @@ const Quiz = () => {
     <Box m="20px">
       <Header title="AI Recruit" subtitle="Managing the Quiz" />
       <Box m="20px">
-        <Button
-          variant="contained"
-          startIcon={<AddOutlinedIcon />}
-          component={Link} to="/formQuiz"
-        >
-          Add Quiz
-        </Button>
+      
       </Box>
       <Box
         m="40px 0 0 0"
@@ -141,4 +111,4 @@ const Quiz = () => {
   );
 };
 
-export default Quiz ;
+export default testQuiz;
