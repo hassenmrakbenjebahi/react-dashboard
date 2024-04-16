@@ -91,10 +91,10 @@ const ShowQuiz = () => {
 const today = formatDate(new Date());
 
 const validationSchema = Yup.object().shape({
-    candidat: Yup.string().required("Candidat est obligatoire"),
+    candidat: Yup.string().required("Candidat required"),
     date: Yup.date()
-        .required("Date est obligatoire")
-        .min(today, "La date doit être égale ou postérieure à aujourd'hui"),
+        .required("Date required")
+        .min(today, "invalid date"),
 });
 
 const initialValues = {

@@ -150,7 +150,14 @@ const Sidebar = () => {
              <Item
               title="quizs"
               to="/quizs"
-              icon={<PeopleOutlinedIcon />}
+              icon={<ReceiptOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+              <Item
+              title="test quiz"
+              to="/testquiz"
+              icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />

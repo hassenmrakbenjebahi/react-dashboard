@@ -19,54 +19,89 @@ import PageviewIcon from '@mui/icons-material/Info';
 import Swal from 'sweetalert2';
 
 
-const testQuiz = () => {
-  const [quizs, setquizs] = useState([]);
+const TestQuiz = () => {
+  const [testquizs, setTestQuizs] = useState([]);
+  const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
-    fetchQuizs();
+    const fetchTestQuizs = async () => {
+        try {
+          const response = await axios.get("http://192.168.1.187:5000/all_test_quiz");
+          console.log("Response:", response.data); // Log the response data
+          setTestQuizs(response.data); // Set the state with response data
+        } catch (error) {
+          console.error("Error fetching testquizs:", error);
+        }
+      };
+    fetchTestQuizs();
   }, []);
 
-  const fetchQuizs = async () => {
+
+
+  const fetchQuiz = async (idquiz) => {
     try {
-      const response = await axios.get("http://192.168.1.187:5000/all_quiz");
-      console.log("Response:", response.data); // Log the response data
-      setquizs(response.data); // Set the state with response data
+      const response = await axios.get(`http://192.168.1.187:5000/onequiz/${idquiz}`);
+      console.log("quiz:", response.data);
+      return response.data.theme;
     } catch (error) {
-      console.error("Error fetching quizs:", error);
+      console.error("Error fetching quiz:", error);
+      return null;
     }
   };
 
+  const fetchCandidat = async (idcandidat) => {
+    try {
+      const response = await axios.get(`http://192.168.1.187:5000/onecandidat/${idcandidat}`);
+      console.log("candidat:", response.data);
+      return response.data.name;
+    } catch (error) {
+      console.error("Error fetching candidat:", error);
+      return null;
+
+    }
+  };
+
+     // Create table data
+     useEffect(() => {
+        const createTableData = async () => {
+            const newTableData = [];
+            for (const testquiz of testquizs) {
+                const idTestQuiz = testquiz._id;
+                const date = testquiz.date;
+                const score = testquiz.score;
+                const status = testquiz.status;
+
+                // Fetch candidate name and quiz theme
+                const nomCandidat = await fetchCandidat(testquiz.id_candidat);
+                const themeQuiz = await fetchQuiz(testquiz.idquiz);
+
+                // Create the new table row
+                newTableData.push({
+                    _id: idTestQuiz,
+                    nom_candidat: nomCandidat,
+                    theme_quiz: themeQuiz,
+                    date: date,
+                    score: score,
+                    status: status
+                });
+            }
+            // Set the table data
+            setTableData(newTableData);
+        };
+
+        createTableData();
+    }, [testquizs]);
 
   
   
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
-    { field: "theme", headerName: "THEME", flex: 1 },
-    {
-      field: "Show",
-      headerName: "SHOW",
-      flex: 1,
-      renderCell: ({ row }) => (
-        <Button startIcon={<PageviewIcon />}  component={Link} to={`/voirquiz/${row._id}`}
-        color="success"
-        >
-          Show
-        </Button>
-      ),
-    },
-    {
-      field: "delete",
-      headerName: "DELETE",
-      flex: 1,
-      renderCell: ({ row }) => (
-        <Button startIcon={<DeleteOutlineOutlinedIcon />}  onClick={() => handleDelete(row._id)}
-        color="error"
-        >
-          Delete
-        </Button>
-      ),
-    },
+    { field: "nom_candidat", headerName: "candidat", flex: 1 },
+    { field: "theme_quiz", headerName: "theme quiz", flex: 1 },
+    { field: "date", headerName: "date", flex: 1 },
+    { field: "score", headerName: "score", flex: 1 },
+    { field: "status", headerName: "statut", flex: 1 }
   ];
   
 
@@ -105,10 +140,10 @@ const testQuiz = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={quizs} columns={columns} getRowId={(row) => row._id} />
+        <DataGrid checkboxSelection rows={tableData} columns={columns} getRowId={(row) => row._id} />
       </Box>
     </Box>
   );
 };
 
-export default testQuiz;
+export default TestQuiz;

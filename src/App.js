@@ -20,7 +20,7 @@ import Calendar from "./scenes/calendar/calendar";
 import FormQuiz from "./scenes/quiz/addquiz";
 import DetailQuiz from "./scenes/quiz/detailQuiz";
 import ShowQuiz from "./scenes/quiz/showquiz";
-
+import TestQuiz from "./scenes/quiz/testquiz";
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -41,6 +41,7 @@ function App() {
               <Route path="/formQuiz" element={<FormQuiz />} />
               <Route path="/detailquiz/:th" element={<DetailQuiz />} />
               <Route path="/voirquiz/:id" element={<ShowQuiz />} />
+              <Route path="/testquiz/" element={< TestQuiz />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/form" element={<Form />} />
