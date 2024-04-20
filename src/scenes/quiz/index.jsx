@@ -28,7 +28,7 @@ const Quiz = () => {
 
   const fetchQuizs = async () => {
     try {
-      const response = await axios.get("http://192.168.1.187:5000/all_quiz");
+      const response = await axios.get(`http://192.168.1.187:5000/allQuizByRecruter/661e2edf36e2c6c7a2422722`);
       console.log("Response:", response.data); // Log the response data
       setquizs(response.data); // Set the state with response data
     } catch (error) {

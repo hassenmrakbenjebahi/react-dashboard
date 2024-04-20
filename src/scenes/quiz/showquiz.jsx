@@ -57,6 +57,8 @@ const ShowQuiz = () => {
       await axios.post(
         "http://192.168.1.187:5000/affecter",
         {
+          // njib idrecruter min token 
+          idRecruter: "661e2edf36e2c6c7a2422722",
           idcandidat: values.candidat,
           idquiz: quiz._id,
           date:values.date 

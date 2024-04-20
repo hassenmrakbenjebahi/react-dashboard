@@ -26,7 +26,7 @@ const TestQuiz = () => {
   useEffect(() => {
     const fetchTestQuizs = async () => {
         try {
-          const response = await axios.get("http://192.168.1.187:5000/all_test_quiz");
+          const response = await axios.get(`http://192.168.1.187:5000/testQuizByRecruter/661e2edf36e2c6c7a2422722`);
           console.log("Response:", response.data); // Log the response data
           setTestQuizs(response.data); // Set the state with response data
         } catch (error) {
