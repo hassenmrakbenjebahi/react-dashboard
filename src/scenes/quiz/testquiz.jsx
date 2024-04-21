@@ -72,8 +72,8 @@ const TestQuiz = () => {
                 const status = testquiz.status;
 
                 // Fetch candidate name and quiz theme
-                const nomCandidat = await fetchCandidat(testquiz.id_candidat);
-                const themeQuiz = await fetchQuiz(testquiz.idquiz);
+                const nomCandidat = await fetchCandidat(testquiz.idCandidat);
+                const themeQuiz = await fetchQuiz(testquiz.idQuiz);
 
                 // Create the new table row
                 newTableData.push({
