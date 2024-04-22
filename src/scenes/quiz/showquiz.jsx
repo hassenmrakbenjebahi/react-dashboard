@@ -1,19 +1,9 @@
 import { Box, Typography, Card, CardContent, List, ListItem, ListItemText, ListItemIcon, FormControl, InputLabel, Select, MenuItem, TextField } from "@mui/material";
 
-import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import { mockDataRecruitment } from "../../data/mockDataApplications";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button , IconButton} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { Link } from 'react-router-dom';
+import { Button } from "@mui/material";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // Import de l'icône
 import { useParams } from "react-router-dom";
 import { Formik, Field } from "formik";
@@ -27,7 +17,7 @@ const ShowQuiz = () => {
     useEffect(() => {
       const fetchQuiz = async () => {
         try {
-          const response = await axios.get(`http://192.168.1.187:5000/onequiz/${id}`);
+          const response = await axios.get(`http://192.168.1.152:5000/onequiz/${id}`);
           console.log("Response:", response.data);
           setQuiz(response.data);
         } catch (error) {
@@ -37,7 +27,7 @@ const ShowQuiz = () => {
 
       const fetchCandidats = async () => {
         try {
-            const response = await axios.get('http://192.168.1.187:5000/all_candidat');
+            const response = await axios.get('http://192.168.1.152:5000/all_candidat');
             setCandidats(response.data);
         } catch (error) {
             console.error("Error fetching candidats:", error);
@@ -55,7 +45,7 @@ const ShowQuiz = () => {
   const handleAffecter = async (values) => {
     try {
       await axios.post(
-        "http://192.168.1.187:5000/affecter",
+        "http://192.168.1.152:5000/affecter",
         {
           // njib idrecruter min token 
           idRecruter: "661e2edf36e2c6c7a2422722",

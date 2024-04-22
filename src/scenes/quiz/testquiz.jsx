@@ -1,22 +1,10 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataRecruitment } from "../../data/mockDataApplications";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button , IconButton} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { Link } from 'react-router-dom';
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import PageviewIcon from '@mui/icons-material/Info';
-import Swal from 'sweetalert2';
+
 
 
 const TestQuiz = () => {
@@ -26,7 +14,7 @@ const TestQuiz = () => {
   useEffect(() => {
     const fetchTestQuizs = async () => {
         try {
-          const response = await axios.get(`http://192.168.1.187:5000/testQuizByRecruter/661e2edf36e2c6c7a2422722`);
+          const response = await axios.get(`http://192.168.1.152:5000/testQuizByRecruter/661e2edf36e2c6c7a2422722`);
           console.log("Response:", response.data); // Log the response data
           setTestQuizs(response.data); // Set the state with response data
         } catch (error) {
@@ -40,7 +28,7 @@ const TestQuiz = () => {
 
   const fetchQuiz = async (idquiz) => {
     try {
-      const response = await axios.get(`http://192.168.1.187:5000/onequiz/${idquiz}`);
+      const response = await axios.get(`http://192.168.1.152:5000/onequiz/${idquiz}`);
       console.log("quiz:", response.data);
       return response.data.theme;
     } catch (error) {
@@ -51,7 +39,7 @@ const TestQuiz = () => {
 
   const fetchCandidat = async (idcandidat) => {
     try {
-      const response = await axios.get(`http://192.168.1.187:5000/onecandidat/${idcandidat}`);
+      const response = await axios.get(`http://192.168.1.152:5000/onecandidat/${idcandidat}`);
       console.log("candidat:", response.data);
       return response.data.name;
     } catch (error) {
@@ -101,7 +89,6 @@ const TestQuiz = () => {
     { field: "theme_quiz", headerName: "theme quiz", flex: 1 },
     { field: "date", headerName: "date", flex: 1 },
     { field: "score", headerName: "score", flex: 1 },
-    { field: "status", headerName: "statut", flex: 1 }
   ];
   
 

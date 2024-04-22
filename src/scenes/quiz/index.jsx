@@ -1,19 +1,13 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataRecruitment } from "../../data/mockDataApplications";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
+
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button , IconButton} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { Link } from 'react-router-dom';
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import PageviewIcon from '@mui/icons-material/Info';
 import Swal from 'sweetalert2';
@@ -28,7 +22,7 @@ const Quiz = () => {
 
   const fetchQuizs = async () => {
     try {
-      const response = await axios.get(`http://192.168.1.187:5000/allQuizByRecruter/661e2edf36e2c6c7a2422722`);
+      const response = await axios.get(`http://192.168.1.152:5000/allQuizByRecruter/661e2edf36e2c6c7a2422722`);
       console.log("Response:", response.data); // Log the response data
       setquizs(response.data); // Set the state with response data
     } catch (error) {
@@ -51,7 +45,7 @@ const Quiz = () => {
   
       // Si l'utilisateur clique sur "Oui"
       if (result.isConfirmed) {
-        await axios.delete(`http://192.168.1.187:5000/delete_quiz/${id}`);
+        await axios.delete(`http://192.168.1.152:5000/delete_quiz/${id}`);
         // Afficher une alerte de suppression réussie
         Swal.fire('Deleted!', 'Your quiz has been deleted.', 'success');
         // Re-fetch quizs after deletion

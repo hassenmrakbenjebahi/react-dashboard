@@ -1,18 +1,10 @@
 import { Box, Typography, useTheme, Card, CardContent, List, ListItem, ListItemText , ListItemIcon, Dialog, DialogTitle, DialogContent, DialogActions, TextField  } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataRecruitment } from "../../data/mockDataApplications";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
-import Header from "../../components/Header";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button , IconButton} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { Link  , Navigate} from 'react-router-dom';
+import { Navigate} from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // Import de l'icône
 import { useParams } from "react-router-dom";
 import Swal from 'sweetalert2'; // Import de SweetAlert2
@@ -68,7 +60,7 @@ const DetailQuiz = () => {
   const saveQuiz = async () => {
     try {
       await axios.post(
-        "http://192.168.1.187:5000/add_quiz",
+        "http://192.168.1.152:5000/add_quiz",
         {
           // njib idrecruter min token 
           idRecruter: "661e2edf36e2c6c7a2422722",
