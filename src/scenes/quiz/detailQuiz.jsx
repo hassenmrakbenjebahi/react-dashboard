@@ -60,10 +60,10 @@ const DetailQuiz = () => {
   const saveQuiz = async () => {
     try {
       await axios.post(
-        "http://192.168.1.152:5000/add_quiz",
+        "http://192.168.1.187:5000/add_quiz",
         {
           // njib idrecruter min token 
-          idRecruter: "661e2edf36e2c6c7a2422722",
+          idRecruter: "65efc476236182db492bbe99",
           theme: th,
           questions: questions,
         },
