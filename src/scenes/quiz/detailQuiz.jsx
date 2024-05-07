@@ -27,30 +27,33 @@ const DetailQuiz = () => {
   const { th } = useParams();
 
   useEffect(() => {
+    const fetchQuiz = async () => {
+      try {
+        const response = await axios.get(`http://192.168.178.122:5000/generer_quiz/${th}`);
+        console.log("Response:", response.data);
+        setQuestions(response.data);
+        setLoading(false); 
+  
+      } catch (error) {
+        console.error("Error fetching quiz:", error);
+      }
+    };
+  
+    const fetchJob = async () => {
+      try {
+          const response = await axios.get('http://192.168.178.122:5000/alll_jobs');
+          console.log("Response:", response.data);
+
+          setJobs(response.data);
+      } catch (error) {
+          console.error("Error fetching job:", error);
+      }
+  };
     fetchQuiz();
     fetchJob();
   }, []);
 
-  const fetchQuiz = async () => {
-    try {
-      const response = await axios.get(`http://192.168.1.192:5000/generer_quiz/${th}`);
-      console.log("Response:", response.data);
-      setQuestions(response.data);
-      setLoading(false); 
-
-    } catch (error) {
-      console.error("Error fetching quiz:", error);
-    }
-  };
-
-  const fetchJob = async () => {
-    try {
-        const response = await axios.get('http://192.168.1.192:5000/alll_jobs');
-        setJobs(response.data);
-    } catch (error) {
-        console.error("Error fetching job:", error);
-    }
-};
+  
 
   const handleEditClick = (questionIndex) => {
     setSelectedQuestion(questionIndex);
@@ -73,7 +76,7 @@ const DetailQuiz = () => {
   const saveQuiz = async (values) => {
     try {
       await axios.post(
-        "http://192.168.1.192:5000/add_quiz",
+        "http://192.168.178.122:5000/add_quiz",
         {
           // njib idrecruter min token 
           idRecruter: "65efc476236182db492bbe99",
@@ -173,11 +176,11 @@ const DetailQuiz = () => {
                                         as={Select}
                                         labelId="job-label"
                                         id="job-select"
-                                        name="Job"
+                                        name="job"
                                         value={values.job}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        label="Job"
+                                        label="job"
                                     >
                                         {jobs.map((j) => (
                                             <MenuItem key={j._id} value={j._id}>

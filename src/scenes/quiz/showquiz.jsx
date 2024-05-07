@@ -27,7 +27,7 @@ const ShowQuiz = () => {
     useEffect(() => {
       const fetchQuiz = async () => {
         try {
-          const response = await axios.get(`http://192.168.1.192:5000/onequiz/${id}`);
+          const response = await axios.get(`http://192.168.178.122:5000/onequiz/${id}`);
           console.log("Response:", response.data);
           setQuiz(response.data);
         } catch (error) {
@@ -37,7 +37,7 @@ const ShowQuiz = () => {
 
       const fetchCandidats = async () => {
         try {
-            const response = await axios.get('http://192.168.1.192:5000/all_candidat');
+            const response = await axios.get('http://192.168.178.122:5000/all_candidat');
             setCandidats(response.data);
         } catch (error) {
             console.error("Error fetching candidats:", error);
@@ -53,7 +53,7 @@ const ShowQuiz = () => {
 
     const updateQuestions = async (q) => {
       try {
-          const response = await axios.put(`http://192.168.1.192:5000/updateQuiz/${id}`, 
+          const response = await axios.put(`http://192.168.178.122:5000/updateQuiz/${id}`, 
             {
             questions: q,
            },
@@ -92,7 +92,7 @@ const ShowQuiz = () => {
   const handleAffecter = async (values) => {
     try {
       await axios.post(
-        "http://192.168.1.192:5000/affecter",
+        "http://192.168.178.122:5000/affecter",
         {
           // njib idrecruter min token 
           idRecruter: "661e2edf36e2c6c7a2422722",
