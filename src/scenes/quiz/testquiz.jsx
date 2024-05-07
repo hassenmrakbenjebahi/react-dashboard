@@ -18,7 +18,7 @@ const TestQuiz = () => {
 
   const fetchTestQuizs = async () => {
     try {
-      const response = await axios.get(`http://192.168.1.187:5000/testQuizByRecruter/661e2edf36e2c6c7a2422722`);
+      const response = await axios.get(`http://192.168.1.192:5000/testQuizByRecruter/661e2edf36e2c6c7a2422722`);
       console.log("Response:", response.data);
       setTestQuizs(response.data);
     } catch (error) {
@@ -28,7 +28,7 @@ const TestQuiz = () => {
 
   const fetchQuiz = async (idquiz) => {
     try {
-      const response = await axios.get(`http://192.168.1.187:5000/onequiz/${idquiz}`);
+      const response = await axios.get(`http://192.168.1.192:5000/onequiz/${idquiz}`);
       console.log("quiz:", response.data);
       return response.data.theme;
     } catch (error) {
@@ -39,7 +39,7 @@ const TestQuiz = () => {
 
   const fetchCandidat = async (idcandidat) => {
     try {
-      const response = await axios.get(`http://192.168.1.187:5000/onecandidat/${idcandidat}`);
+      const response = await axios.get(`http://192.168.1.192:5000/onecandidat/${idcandidat}`);
       console.log("candidat:", response.data);
       return response.data.name;
     } catch (error) {
@@ -63,7 +63,7 @@ const TestQuiz = () => {
   
       // Si l'utilisateur clique sur "Oui"
       if (result.isConfirmed) {
-        await axios.delete(`http://192.168.1.187:5000/delete_test_quiz/${id}`);
+        await axios.delete(`http://192.168.1.192:5000/delete_test_quiz/${id}`);
         // Afficher une alerte de suppression réussie
         Swal.fire('Deleted!', 'test quiz has been deleted.', 'success');
         // Re-fetch quizs after deletion

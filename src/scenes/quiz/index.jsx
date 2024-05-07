@@ -22,7 +22,7 @@ const Quiz = () => {
 
   const fetchQuizs = async () => {
     try {
-      const response = await axios.get(`http://192.168.1.187:5000/allQuizByRecruter/65efc476236182db492bbe99`);
+      const response = await axios.get(`http://192.168.1.192:5000/allQuizByRecruter/65efc476236182db492bbe99`);
       console.log("Response:", response.data); // Log the response data
       setquizs(response.data); // Set the state with response data
     } catch (error) {
@@ -45,7 +45,7 @@ const Quiz = () => {
   
       // Si l'utilisateur clique sur "Oui"
       if (result.isConfirmed) {
-        await axios.delete(`http://192.168.1.187:5000/delete_quiz/${id}`);
+        await axios.delete(`http://192.168.1.192:5000/delete_quiz/${id}`);
         // Afficher une alerte de suppression réussie
         Swal.fire('Deleted!', 'Your quiz has been deleted.', 'success');
         // Re-fetch quizs after deletion
